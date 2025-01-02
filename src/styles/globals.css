@@ -1,0 +1,12 @@
+/* Import Inter font */
+@import '@fontsource/inter';
+
+/* Tailwind Imports */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply Inter font globally */
+body {
+  font-family: 'Inter', sans-serif;
+}
