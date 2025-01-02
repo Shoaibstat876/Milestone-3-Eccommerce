@@ -10,10 +10,16 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 
+// Define the category type
+interface Category {
+  name: string;
+  href: string;
+}
+
 const Footer: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [categories, setCategories] = useState<any[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   // Social media links
   const socialLinks = [

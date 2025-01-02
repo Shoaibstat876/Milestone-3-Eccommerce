@@ -68,7 +68,7 @@ const AboutPage = () => {
           <div className="bg-teal-700 text-white p-10 rounded-lg shadow-lg hover:shadow-xl transition-transform">
             <h1 className="text-2xl font-bold mb-4">About Us - Tech Hive</h1>
             <p>
-              At Tech Hive, we are passionate about bringing you the best in electronics. Whether you're
+              At Tech Hive, we are passionate about bringing you the best in electronics. Whether you&apos;re
               looking for the latest smartphone, a powerful laptop, or cutting-edge accessories, we have it
               all. We specialize in offering top-quality products at unbeatable prices with fast, reliable
               delivery and expert support.

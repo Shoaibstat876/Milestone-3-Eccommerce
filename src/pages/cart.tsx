@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import Image from "next/image";
 
 const Cart = () => {
   const { cartItems, removeFromCart, calculateTotal } = useCart();
@@ -27,10 +28,12 @@ const Cart = () => {
                 {cartItems.map((item) => (
                   <li key={item.id} className="flex justify-between mb-4">
                     <div className="flex items-center">
-                      <img
+                      <Image
                         src={item.image}
                         alt={item.name}
-                        className="w-16 h-16 object-cover"
+                        width={64} // Adjust width and height
+                        height={64}
+                        className="object-cover"
                       />
                       <div className="ml-4">
                         <p>{item.name}</p>
