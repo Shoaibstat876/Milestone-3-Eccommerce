@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import Layout from "@/components/layout/Layout";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { PiShoppingCartSimpleLight } from "react-icons/pi";
 import { useCart } from "@/context/CartContext"; // Import Cart Context
 
@@ -26,7 +25,6 @@ const featuredProducts = [
 
 const SingleProductPage = () => {
   const { addToCart } = useCart(); // Access addToCart function from CartContext
-  const router = useRouter();
 
   const handleAddToCart = () => {
     addToCart(product); // Add the current product to the cart

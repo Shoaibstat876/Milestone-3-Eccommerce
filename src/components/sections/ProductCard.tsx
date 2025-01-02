@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useRouter } from "next/router";
+
 import { useCart } from "@/context/CartContext";
 import { PiShoppingCartSimpleLight } from "react-icons/pi"; // Import the cart icon
 
