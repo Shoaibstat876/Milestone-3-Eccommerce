@@ -39,7 +39,7 @@ const Header = () => {
 
   const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
-    
+
     if (searchQuery.trim()) {
       const response = await fetch(`/api/search?query=${searchQuery}`);
       const data = await response.json();

@@ -1,54 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "@/components/sections/ProductCard"; // Import ProductCard
 
-// Sample product data for electronics
-const products = [
-  {
-    id: 1,
-    image: "/assets/images/laptop-1.png",
-    name: "Gaming Laptop",
-    price: 1200, // Price is a number
-    badge: "New",
-    priceStyle: "text-black font-medium",
-    nameStyle: "text-lg font-medium text-[#007580]",
-    cartColor: "bg-[#029fae] hover:bg-teal-700",
-    iconColor: "text-white",
-  },
-  {
-    id: 2,
-    image: "/assets/images/headphones-1.png",
-    name: "Wireless Headphones",
-    price: 150, // Price is a number
-    badge: "Sale",
-    originalPrice: 200, // Original price as a number
-    priceStyle: "text-black font-medium",
-    nameStyle: "text-lg font-medium",
-    cartColor: "bg-[#f0f2f3] hover:bg-gray-600",
-    iconColor: "text-black",
-  },
-  {
-    id: 3,
-    image: "/assets/images/smartwatch-1.png",
-    name: "Smartwatch",
-    price: 250, // Price is a number
-    priceStyle: "text-black font-medium",
-    nameStyle: "text-lg font-medium",
-    cartColor: "bg-[#f0f2f3] hover:bg-gray-600",
-    iconColor: "text-black",
-  },
-  {
-    id: 4,
-    image: "/assets/images/printer-1.png",
-    name: "Printer",
-    price: 100, // Price is a number
-    priceStyle: "text-black font-medium",
-    nameStyle: "text-lg font-medium",
-    cartColor: "bg-[#f0f2f3] hover:bg-gray-600",
-    iconColor: "text-black",
-  },
-];
+// Define the type for a product
+type Product = {
+  id: number;
+  image: string;
+  name: string;
+  price: number;
+  badge?: string;
+  originalPrice?: number;
+  priceStyle: string;
+  nameStyle: string;
+  cartColor: string;
+  iconColor: string;
+};
 
 const FeaturedProducts = () => {
+  const [products, setProducts] = useState<Product[]>([]); // Set the state type to Product[]
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch product data from the API
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("/api/products");
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section className="py-10">
       <div className="container mx-auto px-4">
