@@ -1,31 +1,25 @@
-"use client";
-
+// Header.tsx
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { PiShoppingCartSimpleLight } from "react-icons/pi";
 
-interface NavLink {
-  name: string;
-  path: string;
-}
-
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState(0); // Default to 0 cart items
+  const [searchResults, setSearchResults] = useState<any[]>([]);
 
-  const navLinks: NavLink[] = [
+  const navLinks = [
     { name: "Home", path: "/" },
     { name: "Shop", path: "/products" },
     { name: "About", path: "/about" },
     { name: "Product", path: "/product/1" },
     { name: "Contact", path: "/contact" },
     { name: "FAQs", path: "/faq" },
-    { name: "Terms & Conditions", path: "/terms" }, // Added Terms & Conditions
+    { name: "Terms & Conditions", path: "/terms" },
   ];
 
-  // Fetch cart items dynamically
   useEffect(() => {
     const fetchCartItems = async () => {
       const response = await fetch("/api/cart");
@@ -36,14 +30,18 @@ const Header = () => {
     fetchCartItems();
   }, []);
 
-  const handleSearch = (event: React.FormEvent) => {
+  const handleSearch = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Searching for:", searchQuery);
+    
+    if (searchQuery.trim()) {
+      const response = await fetch(`/api/search?query=${searchQuery}`);
+      const data = await response.json();
+      setSearchResults(data);
+    }
   };
 
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
-      {/* Logo and Navigation */}
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-4">
@@ -149,6 +147,29 @@ const Header = () => {
             ))}
           </ul>
         </nav>
+      )}
+
+      {/* Search Results */}
+      {searchResults.length > 0 && (
+        <div className="bg-white shadow-lg p-4 mt-4">
+          <ul>
+            {searchResults.map((product) => (
+              <li key={product.id} className="flex items-center space-x-4 py-2">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  width={50}
+                  height={50}
+                  className="rounded-md object-cover"
+                />
+                <div>
+                  <Link href={`/product/${product.id}`} className="text-teal-500 font-semibold">{product.name}</Link>
+                  <p className="text-gray-600">${product.price}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </header>
   );
