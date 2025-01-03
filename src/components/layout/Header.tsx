@@ -1,14 +1,21 @@
-// Header.tsx
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { PiShoppingCartSimpleLight } from "react-icons/pi";
 
+// Define the Product type to avoid using 'any'
+interface Product {
+  id: string;
+  name: string;
+  image: string;
+  price: number;
+}
+
 const Header = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [cartItems, setCartItems] = useState(0); // Default to 0 cart items
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<Product[]>([]); // Use the Product type for searchResults
 
   const navLinks = [
     { name: "Home", path: "/" },

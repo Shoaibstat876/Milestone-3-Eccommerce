@@ -1,9 +1,18 @@
-//src\pages\contact.tsx
-import React from "react";
+import React, { useState } from "react";
 import { FiMapPin, FiPhone, FiClock } from "react-icons/fi"; // Icon imports
 import Layout from "@/components/layout/Layout";
 
 const ContactPage = () => {
+  // State to manage form submission message
+  const [message, setMessage] = useState("");
+
+  // Handle form submission
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Display the success message
+    setMessage("It's always a pleasure to make new connections and explore potential opportunities");
+  };
+
   return (
     <Layout>
       {/* Contact Section */}
@@ -60,7 +69,7 @@ const ContactPage = () => {
 
           {/* Contact Form */}
           <div>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Field */}
               <div>
                 <label
@@ -133,10 +142,18 @@ const ContactPage = () => {
                 Submit
               </button>
             </form>
+
+            {/* Success Message */}
+            {message && (
+              <div className="mt-6 text-center text-teal-500 font-semibold">
+                {message}
+              </div>
+            )}
           </div>
         </div>
       </section>
 
+      {/* Features Section */}
       {/* Features Section */}
       <section className="py-10 bg-gray-50">
         <div className="container mx-auto px-6 flex flex-col lg:flex-row items-center justify-between space-y-6 lg:space-y-0">
@@ -255,105 +272,3 @@ const ContactPage = () => {
 };
 
 export default ContactPage;
-/**
- * ### Code Comments for `ContactPage` Component
- *
- * #### Purpose:
- * - This React component renders a Contact Page with two main sections:
- *   1. Contact Information: Displays address, phone, and working hours.
- *   2. Contact Form: Allows users to submit inquiries.
- *   3. Features Section: Highlights additional features with icons and descriptions.
- *
- * ---
- *
- * #### Component Imports:
- * - `FiMapPin`, `FiPhone`, `FiClock`: Imported from `react-icons/fi` for visual representation of address, phone, and time.
- * - `Layout`: Custom layout component wrapping the content.
- *
- * ---
- *
- * #### JSX Structure:
- *
- * 1. **Contact Section** (`<section>` with class `py-16`):
- *    - `py-16`: Adds vertical padding for spacing.
- *    - Container:
- *      - `container mx-auto px-6`: Centers content with horizontal padding.
- *      - `grid grid-cols-1 lg:grid-cols-2`: Responsive grid with 1 column (default) and 2 columns on large screens.
- *
- *    **Contact Information**:
- *    - Contains a title, description, and details (address, phone, working hours).
- *    - `text-center`: Centers the title and description text.
- *    - **Icons** (`FiMapPin`, `FiPhone`, `FiClock`):
- *      - Styled with `text-black text-2xl` for consistent size and color.
- *    - Each detail (`div`):
- *      - `flex items-center space-x-4`: Aligns icon and text horizontally with spacing.
- *      - Text:
- *        - `font-bold text-black`: For section headings (e.g., "Address").
- *        - `text-gray-600`: For supporting text (e.g., address content).
- *
- *    **Contact Form**:
- *    - Form:
- *      - `space-y-6`: Adds vertical spacing between fields.
- *    - Input Fields:
- *      - Common Tailwind classes:
- *        - `w-full`: Full width.
- *        - `px-4 py-2`: Internal padding.
- *        - `border rounded-md`: Border with rounded corners.
- *        - `focus:outline-none focus:ring-2 focus:ring-teal-500`: Adds a teal ring effect on focus for better UX.
- *    - Submit Button:
- *      - `w-full px-6 py-3`: Full-width button with padding.
- *      - `bg-teal-500 text-white`: Teal background with white text.
- *      - `hover:bg-teal-600 hover:scale-105`: Changes background color and scales slightly on hover for interactivity.
- *
- * 2. **Features Section** (`<section>` with class `py-10 bg-gray-50`):
- *    - `py-10`: Adds vertical spacing.
- *    - `bg-gray-50`: Light gray background for visual separation.
- *    - Feature List:
- *      - `flex flex-col lg:flex-row`: Stacks features vertically (default) and horizontally on large screens.
- *      - **Feature Item**:
- *        - `group relative flex items-center space-x-4`: Groups icon, title, and description.
- *        - `group-hover:scale-110`: Adds a scaling effect on hover.
- *      - Tooltip:
- *        - `absolute bottom-full left-1/2 transform -translate-x-1/2`: Positions the tooltip above the item.
- *        - `group-hover:block`: Displays tooltip on hover.
- *    - **Icons**:
- *      - Custom SVGs for High Quality, Warranty Protection, and Customer Support.
- *      - Tailwind classes (`w-8 h-8 text-blue-900`): Consistent size and blue color.
- *
- * ---
- *
- * #### Key Tailwind CSS Properties:
- * - `py-*`, `px-*`: Padding.
- * - `text-*`: Text color and size.
- * - `rounded-md`, `rounded-lg`: Border-radius for rounded corners.
- * - `hover:*`: Styles applied on hover (e.g., `hover:bg-teal-600`).
- * - `focus:*`: Styles applied when focused (e.g., `focus:ring-2`).
- * - `grid grid-cols-*`: Responsive grid layout.
- * - `space-y-*`, `space-x-*`: Adds spacing between elements.
- * - `bg-gray-50`, `bg-teal-500`: Background colors.
- *
- * ---
- *
- * #### Scalability and Suggestions:
- * 1. **Reusability**:
- *    - Create reusable components for:
- *      - `ContactInformationItem`: To avoid repetition of address, phone, and time sections.
- *      - `FeatureItem`: To modularize feature rendering.
- *
- * 2. **Accessibility**:
- *    - Add `aria-labels` to form fields and buttons for better screen reader support.
- *    - Use semantic HTML tags where possible (e.g., `<address>` for contact info).
- *
- * 3. **Form Handling**:
- *    - Currently, the form lacks submission logic.
- *    - Integrate with a backend API or a service like Formspree for functionality.
- *    - Add validation for required fields and error handling.
- *
- * 4. **Styling Consistency**:
- *    - Centralize Tailwind configuration for colors and spacing in `tailwind.config.js`.
- *    - Use consistent naming for classes (e.g., group hover effects).
- *
- * 5. **Performance**:
- *    - Optimize SVG icons if the app grows in size.
- *    - Minimize unnecessary re-renders by memoizing reusable components.
- */
